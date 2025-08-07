@@ -1,5 +1,6 @@
 package br.com.dev.osorio.full_curse_spring_boot.controllers;
 
+import br.com.dev.osorio.full_curse_spring_boot.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,14 +12,14 @@ public class MathController {
     @RequestMapping("/sum/{numberOne}/{numberTwo}")
     public Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) {
 
-        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new IllegalArgumentException();
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new UnsupportedMathOperationException("value invalid");
 
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
 
     private Double convertToDouble(String strNumber) {
 
-        if (strNumber == null || strNumber.isEmpty()) throw new IllegalArgumentException();
+        if (strNumber == null || strNumber.isEmpty()) throw new UnsupportedMathOperationException("value invalid");
 
         String number = strNumber.replace(',', '.');
 
