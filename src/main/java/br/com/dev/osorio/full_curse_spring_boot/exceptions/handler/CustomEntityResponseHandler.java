@@ -1,7 +1,7 @@
 package br.com.dev.osorio.full_curse_spring_boot.exceptions.handler;
 
 import br.com.dev.osorio.full_curse_spring_boot.exceptions.ExceptionResponse;
-import br.com.dev.osorio.full_curse_spring_boot.exceptions.UnsupportedMathOperationException;
+import br.com.dev.osorio.full_curse_spring_boot.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,14 +14,14 @@ import java.util.Date;
 @ControllerAdvice
 public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(UnsupportedMathOperationException.class)
-    public final ResponseEntity<ExceptionResponse> unsupportedMathOperationException(Exception ex, WebRequest request) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> resourceNotFoundException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
 
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }
