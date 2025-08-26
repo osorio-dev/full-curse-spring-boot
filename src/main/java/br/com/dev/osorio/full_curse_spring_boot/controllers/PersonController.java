@@ -5,6 +5,7 @@ import br.com.dev.osorio.full_curse_spring_boot.service.PersonServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,9 @@ public class PersonController {
 
     @GetMapping("/findPerson/{id}")
     public PersonDTO findById(@PathVariable("id") Long id) {
-        return personServices.findById(id);
+        var person = personServices.findById(id);
+        person.setBirthday(new Date());
+        return person;
     }
 
     @GetMapping("/findPerson")
